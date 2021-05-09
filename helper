@@ -98,10 +98,9 @@ build(){
 
 	if [ $2 == "-oldcam" ]
 	then
-		make_build "${1}-perf_defconfig"
+		make_build "${1}-old_defconfig"
 	else
-		make_build "${1}-perf_defconfig"
-		send_msg "📝 $(git log --pretty=format:'%s' -5) 📝"
+		make_build "${1}-new_defconfig"
 	fi
 		mkzip "$KERNELNAME-HMP-${1}${2}${3}-$DATE.zip"
 }
