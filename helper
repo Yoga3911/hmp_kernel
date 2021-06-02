@@ -102,5 +102,5 @@ build(){
 	else
 		make_build "${1}-new_defconfig"
 	fi
-		mkzip "$KERNELNAME-HMP${2}${3}-$DATE.zip"
+		mkzip "$KERNELNAME-HMP-66HZ${2}${3}-$DATE.zip"
 }
