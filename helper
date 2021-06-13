@@ -83,7 +83,7 @@ gen_toolchain(){
 	print "Cloning toolchain files..." green
 	if [ $TOOLCHAIN == "clang" ]
 	then
-		git clone --depth https://github.com/NusantaraDevs/DragonTC -b daily/10.0 clang
+		git clone --depth=1 https://github.com/NusantaraDevs/DragonTC -b daily/10.0 clang
 		git clone https://github.com/ramadhannangga/x86_64-aarch64-none-linux-gnu gcc
 		git clone https://github.com/ramadhannangga/x86_64-arm-none-linux-gnueabihf gcc32
 	else
