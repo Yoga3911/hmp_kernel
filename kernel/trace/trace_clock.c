@@ -106,7 +106,9 @@ u64 notrace trace_clock_global(void)
 	if (unlikely(in_nmi()))
 		goto out;
 
-	arch_spin_lock(&trace_clock_struct.lock);
+	/* Make sure that now is always greater than or equal to prev_time */
+	if ((s64)(now - prev_time) < 0)
+		now = prev_time;
 
 	/*
 	 * TODO: if this happens often then maybe we should reset
@@ -116,7 +118,12 @@ u64 notrace trace_clock_global(void)
 	if ((s64)(now - trace_clock_struct.prev_time) < 0)
 		now = trace_clock_struct.prev_time + 1;
 
-	trace_clock_struct.prev_time = now;
+	/* Tracing can cause strange recursion, always use a try lock */
+	if (arch_spin_trylock(&trace_clock_struct.lock)) {
+		/* Reread prev_time in case it was already updated */
+		prev_time = READ_ONCE(trace_clock_struct.prev_time);
+		if ((s64)(now - prev_time) < 0)
+			now = prev_time;
 
 	arch_spin_unlock(&trace_clock_struct.lock);
 
