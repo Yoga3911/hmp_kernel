@@ -83,11 +83,7 @@ gen_toolchain(){
 	print "Cloning toolchain files..." green
 	if [ $TOOLCHAIN == "clang" ]
 	then
-		mkdir clang
-                cd clang || exit
-	        wget -q https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r437112.tar.gz
-                tar -xf clang*
-                cd .. || exit
+		git clone --depth=1 https://github.com/NusantaraDevs/DragonTC -b daily/10.0 clang
 		git clone https://github.com/ZyCromerZ/aarch64-zyc-linux-gnu -b 12 $GCCaPath --depth=1 gcc
 	        git clone https://github.com/ZyCromerZ/arm-zyc-linux-gnueabi -b 12 $GCCbPath --depth=1 gcc32
 	else
