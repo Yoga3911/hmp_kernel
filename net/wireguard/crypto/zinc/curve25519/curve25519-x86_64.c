@@ -582,7 +582,6 @@ static inline void fsqr(u64 *out, const u64 *f, u64 *tmp)
 		"  add %%rax, %%r8;"
 		"  movq %%r8, 0(%0);"
 	: "+&r" (tmp), "+&r" (f), "+&r" (out)
-	:
 	: "%rax", "%rcx", "%rdx", "%r8", "%r9", "%r10", "%r11", "%rbx", "%r13", "%r14", "%r15", "memory", "cc"
 	);
 }
@@ -744,7 +743,6 @@ static inline void fsqr2(u64 *out, const u64 *f, u64 *tmp)
 		"  add %%rax, %%r8;"
 		"  movq %%r8, 32(%0);"
 	: "+&r" (tmp), "+&r" (f), "+&r" (out)
-	:
 	: "%rax", "%rcx", "%rdx", "%r8", "%r9", "%r10", "%r11", "%rbx", "%r13", "%r14", "%r15", "memory", "cc"
 	);
 }
